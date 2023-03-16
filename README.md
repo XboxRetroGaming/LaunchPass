@@ -3,6 +3,6 @@ LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/Ret
 ![Logo](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/d14ac0b559bae1aae99185a8be933d4af86664f2/Docs/LaunchPass.webp)
 
 ## Table of Contents
-- [About]()
+- [About](ABOUT.md)
 - [Coming Soon](MYSTERY.md)
 - [Updates](UPDATES.md)
