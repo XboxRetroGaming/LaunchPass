@@ -149,7 +149,7 @@ namespace RetroPass
 
     internal class DataSourceLaunchBox : DataSource
     {
-        public DataSourceLaunchBox(string rootFolder, RetroPassConfig retroPassConfig) : base(rootFolder, retroPassConfig)
+        public DataSourceLaunchBox(string rootFolder, LaunchPassConfig LaunchPassConfig) : base(rootFolder, LaunchPassConfig)
         {
         }
 

@@ -35,7 +35,7 @@ namespace RetroPass
 
             var settings = ApplicationData.Current;
             //If getting LocalSettings before getting LocalCacheFoler, the first time the app starts, it gets restarted.
-            //Strange behaviour and possibly some kind of a bug, but this prevents it.
+            //Strange behavior and possibly some kind of a bug, but this prevents it.
             var localCacheFolder = settings.LocalCacheFolder;
 
             var localSettings = settings.LocalSettings;
@@ -109,7 +109,7 @@ namespace RetroPass
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             DataSourceManager manager = new DataSourceManager();
-            await manager.PrepareRetroPassUltimateFolder();
+            await manager.PrepareLaunchPassFolder();
 
             string fontPath = ((App)Application.Current).CurrentThemeSettings.GetFontFilePath();
             ((App)Application.Current).Resources["ApplicationFonts"] = "Assets/Fonts/" + Path.GetFileName(fontPath) + "#" + Path.GetFileNameWithoutExtension(fontPath);

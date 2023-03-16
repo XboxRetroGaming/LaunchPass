@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 namespace RetroPass
 {
     [Serializable, XmlRoot("dataSource")]
-    public class RetroPassConfig
+    public class LaunchPassConfig
     {
         public enum DataSourceType
         {

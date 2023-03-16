@@ -75,7 +75,7 @@ namespace LaunchPass
                 var removableDevices = KnownFolders.RemovableDevices;
                 var folders = await removableDevices.GetFoldersAsync();
 
-                StorageFolder retroPassUltimateFolderCurrent = null;
+                StorageFolder LaunchPassFolderCurrent = null;
 
                 foreach (StorageFolder rootFolder in folders)
                 {
@@ -85,11 +85,11 @@ namespace LaunchPass
                     if (launchBoxFolder != null)
                     {
                         // Check removable devices for LaunchPass Folder.
-                        retroPassUltimateFolderCurrent = await rootFolder.TryGetItemAsync("LaunchPass") as StorageFolder;
+                        LaunchPassFolderCurrent = await rootFolder.TryGetItemAsync("LaunchPass") as StorageFolder;
 
-                        settingsXMLFile = await GetRPUThemeSettingsFile(retroPassUltimateFolderCurrent);
+                        settingsXMLFile = await GetRPUThemeSettingsFile(LaunchPassFolderCurrent);
 
-                        var backgroundFiles = await GetFilesAsync(retroPassUltimateFolderCurrent, "Backgrounds", new List<string>() { ".png", ".jpg", ".mp4", ".mpg", ".MOV", ".avif", ".webp" });
+                        var backgroundFiles = await GetFilesAsync(LaunchPassFolderCurrent, "Backgrounds", new List<string>() { ".png", ".jpg", ".mp4", ".mpg", ".MOV", ".avif", ".webp" });
                         List<String> backgroundsFilesNameList = backgroundFiles.Select(s => s.Name).ToList();
 
                         MainPageCB.ItemsSource = backgroundsFilesNameList;
@@ -99,7 +99,7 @@ namespace LaunchPass
                         CustomizePageCB.ItemsSource = backgroundsFilesNameList;
                         SettingsPageCB.ItemsSource = backgroundsFilesNameList;
 
-                        var fontFiles = await GetFilesAsync(retroPassUltimateFolderCurrent, "Fonts", new List<string>() { ".ttf", ".otf" });
+                        var fontFiles = await GetFilesAsync(LaunchPassFolderCurrent, "Fonts", new List<string>() { ".ttf", ".otf" });
                         FontsCB.ItemsSource = fontFiles.Select(s => s.Name).ToList();
 
                         break;
