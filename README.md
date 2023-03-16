@@ -20,7 +20,7 @@ LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/Ret
 
  - Xbox Only
  - Optimized for Gamepad Only
- - Zipped content supported only if RetroArch or RetriX Gold and other supported cores/emulators support reading that file type.
+ - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support reading the file extentsion.
  - No Automatic Scrapper, you must use Launchbox (More Info Below)
  - EmulationStation support is discontinued sorry!
   
