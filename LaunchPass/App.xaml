@@ -8,9 +8,5 @@
     <Application.Resources>
 
         <FontFamily x:Key="ApplicationFonts">Assets/Fonts/Xbox.ttf#Xbox</FontFamily>
-
     </Application.Resources>
-
-
 </Application>
-

@@ -20,6 +20,7 @@ namespace RetroPass
         public static readonly string SettingsLoggingEnabled = "SettingsLoggingEnabled";
         public LaunchPassThemeSettings CurrentThemeSettings { get; set; }
         public string RetroPassRootPath { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -48,8 +49,6 @@ namespace RetroPass
             {
                 localSettings.Values[SettingsLoggingEnabled] = false;
             }
-
-            
         }
 
         private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -107,7 +106,7 @@ namespace RetroPass
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        async protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             DataSourceManager manager = new DataSourceManager();
             await manager.PrepareRetroPassUltimateFolder();
@@ -129,7 +128,7 @@ namespace RetroPass
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }

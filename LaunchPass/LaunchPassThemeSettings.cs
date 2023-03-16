@@ -10,7 +10,6 @@ using Windows.UI.Xaml;
 
 namespace RetroPass
 {
-
     [XmlRoot(ElementName = "Background")]
     public class Background
     {
@@ -40,7 +39,6 @@ namespace RetroPass
         [XmlElement(ElementName = "BoxArtType")]
         public string BoxArtType { get; set; }
 
-
         public string GetMediaPath(string PageName)
         {
             string path = string.Empty;
@@ -59,4 +57,3 @@ namespace RetroPass
         }
     }
 }
-

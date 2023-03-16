@@ -29,7 +29,7 @@ namespace LaunchPass
     /// </summary>
     public sealed partial class ThemeSettingsPage : Page
     {
-        StorageFile settingsXMLFile;
+        private StorageFile settingsXMLFile;
 
         public ThemeSettingsPage()
         {
@@ -154,7 +154,6 @@ namespace LaunchPass
             }
         }
 
-
         private async Task<List<StorageFile>> GetFilesAsync(StorageFolder rootFolder, string subFolderName, List<string> allowedExtensions)
         {
             var files = new List<StorageFile>();
@@ -179,7 +178,7 @@ namespace LaunchPass
             return files;
         }
 
-        // Filter only allowed extension files 
+        // Filter only allowed extension files
         private async Task<List<StorageFile>> GetFilesInFolderAsync(StorageFolder folder, List<string> allowedExtensions)
         {
             List<StorageFile> allFiles = new List<StorageFile>();
@@ -211,7 +210,7 @@ namespace LaunchPass
             return file;
         }
 
-        async private void btnApplyChanges_Click(object sender, RoutedEventArgs e)
+        private async void btnApplyChanges_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -273,7 +272,6 @@ namespace LaunchPass
                         await msgBox.ShowAsync();
                         await CoreApplication.RequestRestartAsync("Application Restart Programmatically.");
                     }
-
                 }
             }
             catch (Exception ex)
@@ -290,6 +288,7 @@ namespace LaunchPass
             toggleClearLogo.IsChecked = false;
             ToggleFanartBackground.IsChecked = false;
         }
+
         private void toggleBox3d_Checked(object sender, RoutedEventArgs e)
         {
             toggleBoxFront.IsChecked = false;
@@ -297,6 +296,7 @@ namespace LaunchPass
             toggleClearLogo.IsChecked = false;
             ToggleFanartBackground.IsChecked = false;
         }
+
         private void ToggleCartFront_Checked(object sender, RoutedEventArgs e)
         {
             toggleBoxFront.IsChecked = false;
@@ -304,6 +304,7 @@ namespace LaunchPass
             toggleClearLogo.IsChecked = false;
             ToggleFanartBackground.IsChecked = false;
         }
+
         private void toggleClearLogo_Checked(object sender, RoutedEventArgs e)
         {
             toggleBoxFront.IsChecked = false;
@@ -311,6 +312,7 @@ namespace LaunchPass
             ToggleCartFront.IsChecked = false;
             ToggleFanartBackground.IsChecked = false;
         }
+
         private void ToggleFanartBackground_Checked(object sender, RoutedEventArgs e)
         {
             toggleBoxFront.IsChecked = false;
@@ -320,6 +322,3 @@ namespace LaunchPass
         }
     }
 }
-
-
-

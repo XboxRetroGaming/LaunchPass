@@ -13,8 +13,8 @@ namespace RetroPass
     {
         private string fileName = "PlayLater.xml";
 
-        Dictionary<string, PlaylistItem> PlaylistItemsDict = new Dictionary<string, PlaylistItem>();
-        StorageFolder folder = ApplicationData.Current.LocalCacheFolder;
+        private Dictionary<string, PlaylistItem> PlaylistItemsDict = new Dictionary<string, PlaylistItem>();
+        private StorageFolder folder = ApplicationData.Current.LocalCacheFolder;
 
         public PlaylistPlayLater()
         {

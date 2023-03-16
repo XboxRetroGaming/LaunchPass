@@ -100,9 +100,9 @@ namespace RetroPass
 
         public StorageFolder cacheFolder = null;
         private int numImagesProcessed = 0;
-        object numTasks = new object();
-        object lockWriteThumb = new object();
-        List<string> writeThumb = new List<string>();
+        private object numTasks = new object();
+        private object lockWriteThumb = new object();
+        private List<string> writeThumb = new List<string>();
 
         public async Task<BitmapImage> GetImageFromPath(string Path)
         {
@@ -222,7 +222,6 @@ namespace RetroPass
             {
                 numImagesProcessed--;
             }
-
 
             return thumbnail;
         }

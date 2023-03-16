@@ -34,7 +34,7 @@ namespace RetroPass
         [XmlIgnore] public virtual string ReleaseDate { get; set; }
         [XmlIgnore] public virtual string Genre { get; set; }
 
-        BitmapImage bitmapImage = null;
+        private BitmapImage bitmapImage = null;
 
         public abstract void Init();
 

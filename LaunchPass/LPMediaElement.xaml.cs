@@ -24,8 +24,8 @@ namespace LaunchPass
 {
     public sealed partial class LPMediaElement : UserControl
     {
-        static string[] imageExt = new string[] { ".png", "jpg", "jpeg", ".webp" };
-        static string[] videoExt = new string[] { ".mp4", ".MOV", ".webp" };
+        private static string[] imageExt = new string[] { ".png", "jpg", "jpeg", ".webp" };
+        private static string[] videoExt = new string[] { ".mp4", ".MOV", ".webp" };
 
         public string MediaPath
         {
@@ -43,7 +43,7 @@ namespace LaunchPass
         public static readonly DependencyProperty MediaPathProperty =
             DependencyProperty.Register("MediaPath", typeof(string), typeof(LPMediaElement), new PropertyMetadata(string.Empty, OnMediaPathChangedCallBack));
 
-        async private static void OnMediaPathChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static async void OnMediaPathChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             LPMediaElement element = sender as LPMediaElement;
             string path = Convert.ToString(e.NewValue);
