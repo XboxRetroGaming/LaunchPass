@@ -473,12 +473,12 @@ namespace RetroPass
 
                 foreach (StorageFolder rootFolder in folders)
                 {
-                    //FIND LAUNCHBOX FOLDER TO RELATED RETROPASS FOLDER ON THE SAME REMOVABLE DEVICE
+                    //FIND LAUNCHBOX FOLDER TO RELATED LAUNCHPASS FOLDER ON THE SAME REMOVABLE DEVICE
                     StorageFolder launchBoxFolder = await rootFolder.TryGetItemAsync("LaunchBox") as StorageFolder;
 
                     if (launchBoxFolder != null)
                     {
-                        //Check root foler for LaunchPass.xml file.
+                        //Check root folder for LaunchPass.xml file.
                         IStorageItem configItem = await rootFolder.TryGetItemAsync("LaunchPass.xml");
                         if (configItem == null)
                         {

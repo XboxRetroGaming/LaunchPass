@@ -130,7 +130,7 @@ namespace RetroPass
 
             if (hasLocalDataSource == false && hasRemovableDataSource == false)
             {
-                TextStatus.Text = "Couldn't locate RetroPass Ultimate configuration file.\nMake sure a valid LaunchPass.xml is in the root of your removable storage!";
+                TextStatus.Text = "Couldn't locate LaunchPass configuration file.\nMake sure a valid LaunchPass.xml exists!";
             }
 
             RefreshDataSourceUI();
