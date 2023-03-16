@@ -25,7 +25,7 @@ LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/Ret
  - EmulationStation support is discontinued sorry!
   
 
-## Build from source
+## Build Project?
 
 1. Install Visual Studio 2019
 2. Get the latest source code from Main/Dev branch or [release](../../releases/)
