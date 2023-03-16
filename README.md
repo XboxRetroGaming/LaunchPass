@@ -1,5 +1,5 @@
 # LaunchPass
-LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/RetroPass) whithout this project would not exist & FrontEnd for Xbox/Xbox Series Retro Gaming Emulators!
+LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/RetroPass) without this project would not exist & FrontEnd for Xbox/Xbox Series Retro Gaming Emulators!
 ![Video](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/d14ac0b559bae1aae99185a8be933d4af86664f2/Docs/LaunchPass.webp)
 ![Video](/Docs/collection.gif)
 
