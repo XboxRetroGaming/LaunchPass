@@ -1,19 +1,19 @@
-# Forked Repository
-
+# RetroPass Authors
 ## Development
-	retropassdev
-	SirMangler
-
+- [RetroPassDev](https://github.com/retropassdev)
+- [SirMangler](https://github.com/SirMangler)
 # Testing, QA
 	JoKu
 	Danp142
+<hr/>
 
-# LaunchPass (this repository/fork)
+# LaunchPass Authors
 
 ## Development
-	Danp142
-	Mista Julius
-	MoistDreams
+- [Danp142](https://github.com/retropassdev)
+- [MistaJulius](https://github.com/MistaJulius)
+- [MoistDreams](https://github.com/Misunderstood-Wookiee)
 
-	# Testing, QA
-	If you feel you belong here contact us.
+
+# Testing, QA
+If you feel you belong here contact us.
