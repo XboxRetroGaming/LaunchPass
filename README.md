@@ -1,5 +1,5 @@
 # LaunchPass
-LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/RetroPass) whithout this project would not exist & FrontEnd for Xbox/Xbox Series Retro Gaming Emulators!
+LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/RetroPass) without this project would not exist & is a themeable frontend for Xbox/Xbox Series Retro Gaming Emulators!
 ![Video](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/d14ac0b559bae1aae99185a8be933d4af86664f2/Docs/LaunchPass.webp)
 ![Video](/Docs/collection.gif)
 
@@ -20,8 +20,8 @@ LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/Ret
 
  - Xbox Only
  - Optimized for Gamepad Only
- - Zipped content supported only if RetroArch or RetriX Gold and other supported cores/emulators support reading that file type.
- - No Automatic Scrapper, you must use Launchbox (More Info Below)
+ - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support reading the file extentsion.
+ - No Automatic Image Scrapper, you must use Launchbox
  - EmulationStation support is discontinued sorry!
   
 
