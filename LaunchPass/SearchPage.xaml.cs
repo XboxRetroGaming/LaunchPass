@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -234,21 +235,26 @@ namespace RetroPass
                 var item = args.Item as PlaylistItem;
                 var bitmapImage = await item.game.GetImageThumbnailAsync();
 
-                //Trace.TraceInformation("ShowImage " + item.game.BoxFrontFileName);
-
                 // It's phase 1, so show this item's image.
                 var templateRoot = args.ItemContainer.ContentTemplateRoot as FrameworkElement;
                 var image = (Image)templateRoot.FindName("ItemImage");
 
                 image.Opacity = 0;
                 image.Source = bitmapImage;
+
                 if (image.Source == null)
                 {
                     bitmapImage = new BitmapImage();
                     bitmapImage.UriSource = new Uri(image.BaseUri, "Assets/empty.png");
+
+                    // Enable hardware acceleration
+                    image.CacheMode = new BitmapCache();
+
                     image.Source = bitmapImage;
                 }
+
                 image.Opacity = 100;
+
                 args.Handled = true;
             }
         }
