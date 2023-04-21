@@ -1,7 +1,7 @@
 # LaunchPass
 LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/RetroPass) without this project would not exist & is a themeable frontend for Xbox/Xbox Series Retro Gaming Emulators!
 ![Video](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/e55c515e3d5e9385093a306142e1ab50302d9f97/Docs/LaunchPass.webp)
-![Video](/Docs/collection.gif)
+[![Showcase](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/173fc46d795b28ca138c553bbb393205f00be7d8/Docs/Screenshot%202023-04-22%20021815.png)](https://www.youtube.com/watch?v=Ox-JfUBo9as)
 
 
 This is made specifically for Xbox console and hopefully, should feel familiar to Xbox users right from the start with its Game Pass Ultimate vibe.
