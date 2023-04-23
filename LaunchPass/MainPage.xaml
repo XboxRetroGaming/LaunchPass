@@ -22,6 +22,7 @@
                     <Setter Property="CornerRadius" Value="4,4,4,4" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListViewItem">
@@ -112,20 +113,9 @@
         </ListView>
 
         <!-- Platform Collection Grid-->
-        <DataTemplate x:Key="PlaylistItemTemplate"
-        x:DataType="local:PlaylistItem">
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    Margin="0,0,0,0" Padding="0,0,0,0"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent"
-                    BorderThickness="0"  CornerRadius="4,4,4,4" IsEnabled="True">
-                <Grid Background="Transparent" Opacity="1">
-                    <!--<Game Grid Image Background Opacity />-->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Image Grid.Row="0" x:Name="ItemImage" Stretch="Uniform">
-                    </Image>
-                </Grid>
+        <DataTemplate x:Key="PlaylistItemTemplate" x:DataType="local:PlaylistItem">
+            <Button Margin="0,0,0,0" Padding="0,0,0,0" Background="Transparent" BorderThickness="0"  CornerRadius="4,4,4,4" IsEnabled="True">
+                    <Image Grid.Row="0" x:Name="ItemImage" Stretch="Uniform" Height="Auto"/>
             </Button>
         </DataTemplate>
 
@@ -215,10 +205,7 @@
         </Style>
 
         <ItemsPanelTemplate x:Key="GamesListViewPanelTemplate">
-            <!--<ItemsStackPanel  Orientation="Horizontal" />-->
-            <ItemsWrapGrid Orientation="Horizontal"
-                           BringIntoViewRequested="PlatformItemsWrapGrid_BringIntoViewRequested"
-                           HorizontalAlignment="Center" />
+            <ItemsStackPanel  Orientation="Horizontal" BringIntoViewRequested="PlatformItemsWrapGrid_BringIntoViewRequested" HorizontalAlignment="Center"/>
         </ItemsPanelTemplate>
         <!-- Background Resource -->
         <!-- <ImageBrush x:Key="GridBackgroundImage" ImageSource="Assets/Background/Default.gif" Stretch="Fill" /> -->
@@ -278,9 +265,7 @@
                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled"
 				  HorizontalAlignment="Left" Margin="28,0,28,0">
-            <StackPanel XYFocusKeyboardNavigation="Enabled" Name="StackPanelMain"
-                        XYFocusUpNavigationStrategy="RectilinearDistance"
-                        XYFocusDownNavigationStrategy="RectilinearDistance">
+            <StackPanel XYFocusKeyboardNavigation="Enabled" Name="StackPanelMain">
                 <StackPanel x:Name = "StackPanelMenu" Orientation="Horizontal" Spacing="8" Margin="0,20,0,6">
                     <Button x:Name="Search" Width="auto" XYFocusRight="{x:Bind Settings}" Click="Search_Click" HorizontalContentAlignment="Center"
                             Style="{StaticResource HeaderButtonStyle}">

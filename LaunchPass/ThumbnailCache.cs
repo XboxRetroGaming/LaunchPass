@@ -100,8 +100,8 @@ namespace RetroPass
 
         public StorageFolder cacheFolder = null;
         private int numImagesProcessed = 0;
-        object numTasks = new object();
-        object lockWriteThumb = new object();
+        readonly object numTasks = new object();
+        readonly object lockWriteThumb = new object();
         List<string> writeThumb = new List<string>();
 
         public async Task<BitmapImage> GetImageFromPath(string Path)
@@ -121,7 +121,8 @@ namespace RetroPass
             string path = Path.GetRelativePath(dataSource.rootFolder, sourceFile.Path);
             string destPath = "";
 
-            while (numImagesProcessed > 5)
+            // how many images to process
+            while (numImagesProcessed > 8)
             {
                 await Task.Delay(10);
             }

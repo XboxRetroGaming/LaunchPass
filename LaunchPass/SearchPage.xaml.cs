@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -83,6 +82,18 @@ namespace RetroPass
             this.Closing += OnClosing;
         }
 
+        private void GameButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Border gameNameDisplay = (sender as Button).FindName("GameNameDisplay") as Border;
+            gameNameDisplay.Visibility = Visibility.Visible;
+        }
+
+        private void GameButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Border gameNameDisplay = (sender as Button).FindName("GameNameDisplay") as Border;
+            gameNameDisplay.Visibility = Visibility.Collapsed;
+        }
+
         public void OnNavigatedFrom()
         {
             this.Closing -= OnClosing;
@@ -95,7 +106,7 @@ namespace RetroPass
             //args.Cancel = true;
         }
 
-        private void UpdateSearchResults(string searchText)
+        async private void UpdateSearchResults(string searchText)
         {
             if (searchText.Length > 2)
             {
@@ -129,7 +140,16 @@ namespace RetroPass
                         }
                         break;
 
-                    case "Play Mode":
+                    case "Genre":
+                        playlistItems = playlists.SelectMany(p => p.PlaylistItems).Where(t => t.game.Genre != null && t.game.Genre.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                        searchResultList.Clear();
+                        foreach (PlaylistItem i in playlistItems)
+                        {
+                            searchResultList.Add(i);
+                        }
+                        break;
+
+                    case "Player Mode":
                         playlistItems = playlists.SelectMany(p => p.PlaylistItems).Where(t => t.game.PlayMode != null && t.game.PlayMode.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
                         searchResultList.Clear();
                         foreach (PlaylistItem i in playlistItems)
@@ -177,11 +197,61 @@ namespace RetroPass
                     default:
                         break;
                 }
+
+                if(searchResultList.Count > 0) 
+                {
+                    foreach (var item in searchResultList)
+                    {
+                        item.bitmapImage = await item.game.GetImageThumbnailAsync();
+                    }
+
+                    SearchGridView.ItemsSource = null;
+                    SearchGridView.ItemsSource = searchResultList;
+                    SearchGridView.UpdateLayout();
+                }
             }
             else
             {
                 searchResultList.Clear();
             }
+        }
+
+        private void SearchCriteria_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SearchText == null) // check if the SearchText object is null
+            {
+                return; // exit the method early
+            }
+
+            if (SearchCriteria.SelectedItem.ToString() == "Developer")
+            {
+                SearchText.PlaceholderText = "e.g. - Activision/Microsoft/Rockstar";
+            }
+            else if (SearchCriteria.SelectedItem.ToString() == "Year")
+            {
+                SearchText.PlaceholderText = "e.g. - 1990/1996/2000";
+            }
+            else if (SearchCriteria.SelectedItem.ToString() == "Genre")
+            {
+                SearchText.PlaceholderText = "e.g. - Shooter/Racing/Strategy/Sports";
+            }
+            else if (SearchCriteria.SelectedItem.ToString() == "Player Mode")
+            {
+                SearchText.PlaceholderText = "e.g. - Single/Multi/Coop";
+            }
+            else if (SearchCriteria.SelectedItem.ToString() == "Release")
+            {
+                SearchText.PlaceholderText = "e.g. - ROM Hack/Homebrew/Unlicensed";
+            }
+            else if (SearchCriteria.SelectedItem.ToString() == "Title")
+            {
+                SearchText.PlaceholderText = "Search Games...";
+            }
+            else // default placeholder text
+            {
+                SearchText.PlaceholderText = "Search Games...";
+            }
+            // add more conditions as needed for each option in the combo box
         }
 
         private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -235,26 +305,23 @@ namespace RetroPass
                 var item = args.Item as PlaylistItem;
                 var bitmapImage = await item.game.GetImageThumbnailAsync();
 
+                //Trace.TraceInformation("ShowImage " + item.game.BoxFrontFileName);
+
                 // It's phase 1, so show this item's image.
                 var templateRoot = args.ItemContainer.ContentTemplateRoot as FrameworkElement;
                 var image = (Image)templateRoot.FindName("ItemImage");
 
                 image.Opacity = 0;
                 image.Source = bitmapImage;
-
                 if (image.Source == null)
                 {
                     bitmapImage = new BitmapImage();
                     bitmapImage.UriSource = new Uri(image.BaseUri, "Assets/empty.png");
-
-                    // Enable hardware acceleration
-                    image.CacheMode = new BitmapCache();
-
                     image.Source = bitmapImage;
                 }
-
+                bitmapImage.DecodePixelHeight = Convert.ToInt32(image.ActualHeight);
+                bitmapImage.DecodePixelWidth = Convert.ToInt32(image.ActualWidth);
                 image.Opacity = 100;
-
                 args.Handled = true;
             }
         }
@@ -302,10 +369,6 @@ namespace RetroPass
         }
 
         private void SearchGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
-        private void SearchCriteria_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
     }

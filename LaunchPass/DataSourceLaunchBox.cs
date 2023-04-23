@@ -28,6 +28,7 @@ namespace RetroPass
         [XmlElement(ElementName = "Version")] public override string Version { get; set; }
         [XmlElement(ElementName = "MaxPlayers")] public override string MaxPlayers { get; set; }
         [XmlElement(ElementName = "PlayTime")] public override string PlayTime { get; set; }
+        [XmlElement(ElementName = "SortTitle")] public override string SortTitle { get; set; }
 
         [XmlIgnore] public override string ApplicationPathFull { get { return Path.GetFullPath(Path.Combine(DataRootFolder, ApplicationPath)); } }
 
@@ -67,7 +68,7 @@ namespace RetroPass
         }
     }
 
-    //for loading LaunchBox playlist xml files in /Data/Playlists directory
+    //for loading LaunchBox playlist XML files in /Data/Playlists directory
     [Serializable, XmlRoot("LaunchBox")]
     public class PlaylistLaunchBox
     {
@@ -91,7 +92,7 @@ namespace RetroPass
         public PlaylistGame[] PlaylistGames;
     }
 
-    //for loading LaunchBox platform xml files which have a list of games, in /Data/Platforms directory
+    //for loading LaunchBox platform XML files which have a list of games, in /Data/Platforms directory
     [Serializable, XmlRoot("LaunchBox")]
     public class PlaylistPlatformLaunchBox
     {
@@ -223,7 +224,7 @@ namespace RetroPass
             using (TextReader reader = new StringReader(xmlEmulators))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(EmulatorsLaunchBox));
-                // Call the Deserialize method to restore the object's state.
+                // Call the De-serialize method to restore the object's state.
                 EmulatorsLaunchBox emulators = serializer.Deserialize(reader) as EmulatorsLaunchBox;
                 emulatorPlatforms = emulators.emulatorPlatforms;
 
@@ -260,7 +261,7 @@ namespace RetroPass
             using (TextReader reader = new StringReader(xmlPlatforms))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(PlatformsLaunchBox));
-                // Call the Deserialize method to restore the object's state.
+                // Call the De-serialize method to restore the object's state.
                 platforms = serializer.Deserialize(reader) as PlatformsLaunchBox;
             }
 
@@ -280,7 +281,7 @@ namespace RetroPass
                 using (TextReader reader = new StringReader(xmlPlaylist))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(PlaylistLaunchBox));
-                    // Call the Deserialize method to restore the object's state.
+                    // Call the De-serialize method to restore the object's state.
                     PlaylistLaunchBox playlistLaunchBox = serializer.Deserialize(reader) as PlaylistLaunchBox;
                     playlistLaunchBoxList.Add(playlistLaunchBox);
                 }
@@ -288,7 +289,16 @@ namespace RetroPass
 
             return playlistLaunchBoxList;
         }
-
+        private void AddGameToSortedDictionary(SortedDictionary<string, Game> sortedGames, Game game)
+        {
+            string key = string.IsNullOrEmpty(game.SortTitle) ? game.Title : game.SortTitle;
+            if (sortedGames.ContainsKey(key))
+            {
+                //if the key exists, still show the game, but just append a unique guid so it can be added to a dictionary
+                key += Guid.NewGuid().ToString();
+            }
+            sortedGames.Add(key, game);
+        }
         private void AddToDictionaryList<TKey, TValue>(IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value)
         {
             if (!dictionary.ContainsKey(key))
@@ -411,11 +421,16 @@ namespace RetroPass
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(PlaylistPlatformLaunchBox));
                 PlaylistPlatformLaunchBox platformGames = serializer.Deserialize(reader) as PlaylistPlatformLaunchBox;
-
-                playlistTmp.Name = platformName;
+                SortedDictionary<string, Game> sortedGames = new SortedDictionary<string, Game>();
 
                 foreach (var game in platformGames.games)
                 {
+                    AddGameToSortedDictionary(sortedGames, game);
+                }
+                playlistTmp.Name = platformName;
+                foreach (var gameEntry in sortedGames)
+                {
+                    var game = gameEntry.Value as GameLaunchBox;
                     game.DataRootFolder = rootFolder;
                     game.GamePlatform = platform;
 
@@ -465,14 +480,14 @@ namespace RetroPass
 
             List<PlaylistLaunchBox> playlistsLaunchbox = await LoadPlaylistsXmls(dataFolder);
 
-            //get all platform xml files
+            //get all platform XML files
             StorageFolder platformFolder = await StorageUtils.GetFolderFromPathAsync(rootFolder + "\\Data\\Platforms");
             IReadOnlyList<StorageFile> platformsFiles = await platformFolder.GetFilesAsync();
 
             //remove platforms that don't have en entry in emulator platforms
             platformsLaunchBox.platforms.RemoveAll(i => emulatorPlatforms.FindIndex(t => t.Platform == i.Name) == -1);
 
-            //remove platforms that don't have a valid platform xml file
+            //remove platforms that don't have a valid platform XML file
             platformsLaunchBox.platforms.RemoveAll(i => platformsFiles.FirstOrDefault(t => t.Name == i.Name + ".xml") == null);
 
             //join and sort platforms and playlists using "SortTitle" property
@@ -486,7 +501,7 @@ namespace RetroPass
                 if (playlist is PlatformsLaunchBox.Platform)
                 {
                     PlatformsLaunchBox.Platform platformLaunchBox = playlist as PlatformsLaunchBox.Platform;
-                    //load platform if it is not already loade
+                    //load platform if it is not already loaded
                     //if (Platforms.Exists(p => p.Name == platformLaunchBox.Name) == false)
                     //{
                     //launchbox platforms are loaded as Playlists
@@ -532,7 +547,7 @@ namespace RetroPass
                     QueryOptions queryOptions = new QueryOptions(Windows.Storage.Search.CommonFileQuery.OrderByName, fileTypeFilter);
                     StorageFileQueryResult queryResult = platformImageFolder.CreateFileQueryWithOptions(queryOptions);
                     var files = await queryResult.GetFilesAsync();
-                    StorageFile imageFile = files != null && files.Count() > 0 ? files[0] : null;
+                    StorageFile imageFile = files != null && files.Any() ? files[0] : null;
                     if (imageFile != null)
                         playlistTmp.Thumbnail = await ThumbnailCache.Instance.GetThumbnailAsync(imageFile);
 

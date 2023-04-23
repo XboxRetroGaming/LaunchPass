@@ -11,8 +11,8 @@
     <AssemblyName>LaunchPass</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.20348.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.20348.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,7 +24,7 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
@@ -133,6 +133,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LaunchPassCustomPanel.cs" />
     <Compile Include="LaunchPassThemeSettings.cs" />
     <Compile Include="LPMediaElement.xaml.cs">
       <DependentUpon>LPMediaElement.xaml</DependentUpon>
@@ -141,7 +142,6 @@
       <DependentUpon>ThemeSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSource.cs" />
-    <Compile Include="DataSourceEmulationStation.cs" />
     <Compile Include="DataSourceLaunchBox.cs" />
     <Compile Include="DataSourceManager.cs" />
     <Compile Include="Game.cs" />
@@ -182,12 +182,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Background\Customize-Default.mp4" />
-    <Content Include="Assets\Background\Details-Default.png" />
-    <Content Include="Assets\Background\Games-Default.mp4" />
-    <Content Include="Assets\Background\Main-Default.mp4" />
-    <Content Include="Assets\Background\Search-Default.png" />
-    <Content Include="Assets\Background\Settings-Default.mp4" />
+    <Content Include="Assets\Background\FutureLoops-LP.mp4" />
+    <Content Include="Assets\Background\LaunchPass-LP.mp4" />
+    <Content Include="Assets\Background\LowPolygon-LP.mp4" />
+    <Content Include="Assets\Background\Purpz-LP.mp4" />
+    <Content Include="Assets\Background\Waves-LP.mp4" />
+    <Content Include="Assets\Background\Zoom-LP.mp4" />
     <Content Include="Assets\DescriptionBackground.png" />
     <Content Include="Assets\empty.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />

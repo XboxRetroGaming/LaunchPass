@@ -215,7 +215,7 @@ namespace RetroPass
                 using (TextReader reader = new StringReader(xmlConfig))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(LaunchPassConfig));
-                    // Call the Deserialize method to restore the object's state.
+                    // Call the De-serialize method to restore the object's state.
                     LaunchPassConfig configuration = serializer.Deserialize(reader) as LaunchPassConfig;
 
                     string rootFolder = Path.Combine(Path.GetDirectoryName(xmlConfigFile.Path), configuration.relativePath);
@@ -224,10 +224,6 @@ namespace RetroPass
                     if (configuration.type == LaunchPassConfig.DataSourceType.LaunchBox)
                     {
                         dataSource = new DataSourceLaunchBox(rootFolder, configuration);
-                    }
-                    else if (configuration.type == LaunchPassConfig.DataSourceType.EmulationStation)
-                    {
-                        dataSource = new DataSourceEmulationStation(rootFolder, configuration);
                     }
 
                     /*if (dataSource != null)
@@ -333,7 +329,7 @@ namespace RetroPass
 
             List<string> assets = ds.GetAssets();
 
-            //create a launchpass config file			
+            //create a launchpass config file
             LaunchPassConfig configRemovable = await GetConfiguration(DataSourceLocation.Removable);
             LaunchPassConfig config = new LaunchPassConfig();
             config.relativePath = "./DataSource";
@@ -480,8 +476,7 @@ namespace RetroPass
                         IStorageItem configItem = await rootFolder.TryGetItemAsync("LaunchPass.xml");
                         if (configItem == null)
                         {
-                           
-                            // In the event launchpass config file is not found, attempt too create file relative too launchbox data folder			
+                            // In the event launchpass config file is not found, attempt too create file relative too launchbox data folder
                             LaunchPassConfig config = new LaunchPassConfig();
                             config.relativePath = "./LaunchBox";
                             config.type = LaunchPassConfig.DataSourceType.LaunchBox;
@@ -534,22 +529,22 @@ namespace RetroPass
                             var fontFolder = await launchPassFolderCurrent.CreateFolderAsync("Fonts");
 
                             //COPY SAMPLE BACKGROUND AND FONT FILES
-                            var bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Main-Default.mp4"));
+                            var bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/FutureLoops-LP.mp4"));
                             await bgStoreFile.CopyAsync(bgFolder);
 
-                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Games-Default.mp4"));
+                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/LaunchPass-LP.mp4"));
                             await bgStoreFile.CopyAsync(bgFolder);
 
-                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Details-Default.png"));
+                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/LowPolygon-LP.mp4"));
                             await bgStoreFile.CopyAsync(bgFolder);
 
-                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Search-Default.png"));
+                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Purpz-LP.mp4"));
                             await bgStoreFile.CopyAsync(bgFolder);
 
-                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Customize-Default.mp4"));
+                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Waves-LP.mp4"));
                             await bgStoreFile.CopyAsync(bgFolder);
 
-                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Settings-Default.mp4"));
+                            bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Zoom-LP.mp4"));
                             await bgStoreFile.CopyAsync(bgFolder);
 
                             var fontStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Fonts/Xbox.ttf"));
@@ -566,7 +561,7 @@ namespace RetroPass
                             StorageFile launchPassXMLfile = await launchPassFolderCurrent.CreateFileAsync("LaunchPassUserSettings.xml", CreationCollisionOption.ReplaceExisting);
 
                             if (launchPassXMLfile != null)
-                                // Success, now generate the files contents.
+                            // Success, now generate the files contents.
                             {
                                 LaunchPassThemeSettings launchPassDefault = new LaunchPassThemeSettings();
                                 launchPassDefault.Font = "Xbox.ttf";
@@ -575,12 +570,12 @@ namespace RetroPass
                                 {
                                     Background = new List<Background>()
                                     {
-                                         new Background() { Page = "MainPage", File = "Main-Default.mp4" },
-                                         new Background() { Page = "GamePage", File = "Games-Default.mp4" },
-                                         new Background() { Page = "DetailsPage", File = "Details-Default.png" },
-                                         new Background() { Page = "SearchPage", File = "Search-Default.png" },
-                                         new Background() { Page = "CustomizePage", File = "Customize-Default.mp4" },
-                                         new Background() { Page = "SettingsPage", File = "Settings-Default.mp4" },
+                                         new Background() { Page = "MainPage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "GamePage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "DetailsPage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "SearchPage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "CustomizePage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "SettingsPage", File = "LaunchPass-LP.mp4" },
                                     }
                                 };
 
