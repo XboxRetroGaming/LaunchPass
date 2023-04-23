@@ -40,9 +40,16 @@ namespace RetroPass
         {
             this.InitializeComponent();
 
-            mediaPlayer.MediaPath = ((App)Application.Current).CurrentThemeSettings.GetMediaPath("DetailsPage");
+            LoadMediaAsync();
 
             mediaPlayerElement.MediaPlayer.IsLoopingEnabled = true;
+        }
+
+        private async void LoadMediaAsync()
+        {
+            string mediaPath = ((App)Application.Current).CurrentThemeSettings.GetMediaPath("DetailsPage");
+            await mediaPlayer.LoadMediaIntoCache(mediaPlayer, mediaPath);
+            mediaPlayer.MediaPath = mediaPath;
         }
 
         public void OnNavigatedTo(PlaylistItem playlistItem)
