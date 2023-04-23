@@ -16,6 +16,7 @@ This is made specifically for Xbox console and hopefully, should feel familiar t
  - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support reading the file extentsion.
  - No Automatic Scrapper, you must use Launchbox (More Info Below)
  - EmulationStation support is discontinued sorry!
+ - Setting a Sort Title ID# for Platforms in LaunchBox is recommended for accurate platform displaying.
   
 ## Installation
  1. [Download](../../releases/) latest LaunchPass.
