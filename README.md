@@ -13,17 +13,17 @@ This is made specifically for Xbox console and hopefully, should feel familiar t
 
  - Xbox Only
  - Optimized for Gamepad Only
- - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support reading the file extentsion.
+ - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support compressed archive format.
  - No Automatic Scrapper, you must use Launchbox (More Info Below)
  - EmulationStation support is discontinued sorry!
- - Setting a Sort Title ID# for Platforms in LaunchBox is recommended for accurate platform displaying.
+ - Video Background can be laggy in some-instances due to UWP limitations, we recommend 1080p-1440P resolutions and use images for Search & Game Details to reduce how many video play at the same time. (Series X may fair better in this regard)
   
 ## Installation
  1. [Download](../../releases/) latest LaunchPass.
  2. Connect to Xbox through Xbox Device portal and install:
 	- LaunchPass_x.y.z.0_x64.appxbundle
 	- The 3 appx dependencies in Dependencies.zip or Dependencies.7z.
-9. At this point Installation is finished. Proceed to and Follow [Setup](https://github.com/Misunderstood-Wookiee/LaunchPass/wiki/Basic-Usage) Guide!
+3. Installation is finished. Proceed to and Follow [Setup](https://github.com/Misunderstood-Wookiee/LaunchPass/wiki/Basic-Usage) Guide!
 
 
 ## Build from source
