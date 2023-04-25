@@ -1,5 +1,6 @@
 # LaunchPass
-LaunchPass is a modified fork of [RetroPass](https://github.com/retropassdev/RetroPass) without this project would not exist & is a themeable frontend for Xbox/Xbox Series Retro Gaming Emulators!
+LaunchPass is a fork of [RetroPass](https://github.com/retropassdev/RetroPass) without this project would not exist.
+An highly themeable frontend for Xbox/Xbox Series Retro Gaming Emulators with many enhancements.
 ![Video](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/e55c515e3d5e9385093a306142e1ab50302d9f97/Docs/LaunchPass.webp)
 [![Showcase](https://github.com/Misunderstood-Wookiee/LaunchPass/blob/173fc46d795b28ca138c553bbb393205f00be7d8/Docs/Screenshot%202023-04-22%20021815.png)](https://www.youtube.com/watch?v=Ox-JfUBo9as)
 
@@ -13,17 +14,17 @@ This is made specifically for Xbox console and hopefully, should feel familiar t
 
  - Xbox Only
  - Optimized for Gamepad Only
- - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support reading the file extentsion.
+ - Zipped content supported only if RetroArch, RetriX or other supported cores/emulators support compressed archive format.
  - No Automatic Scrapper, you must use Launchbox (More Info Below)
  - EmulationStation support is discontinued sorry!
- - Setting a Sort Title ID# for Platforms in LaunchBox is recommended for accurate platform displaying.
+ - Video Background can be laggy in some-instances due to UWP limitations, we recommend 1080p-1440P resolutions and use images for Search & Game Details to reduce how many video play at the same time. (Series X may fair better in this regard)
   
 ## Installation
  1. [Download](../../releases/) latest LaunchPass.
  2. Connect to Xbox through Xbox Device portal and install:
 	- LaunchPass_x.y.z.0_x64.appxbundle
 	- The 3 appx dependencies in Dependencies.zip or Dependencies.7z.
-9. At this point Installation is finished. Proceed to and Follow [Setup](https://github.com/Misunderstood-Wookiee/LaunchPass/wiki/Basic-Usage) Guide!
+3. Installation is finished. Proceed to and Follow [Setup](https://github.com/Misunderstood-Wookiee/LaunchPass/wiki/Basic-Usage) Guide!
 
 
 ## Build from source
