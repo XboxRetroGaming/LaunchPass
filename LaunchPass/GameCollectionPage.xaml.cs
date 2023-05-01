@@ -253,16 +253,15 @@ namespace RetroPass
         {
             if (args.Phase == 1)
             {
-                var item = args.Item as PlaylistItem;
-                var bitmapImage = await item.game.GetImageThumbnailAsync();
-
                 // It's phase 1, so show this item's image.
                 var templateRoot = args.ItemContainer.ContentTemplateRoot as Button;
                 var image = (Image)templateRoot.FindName("ItemImage");
-                image.CacheMode = new BitmapCache();
-                image.Opacity = 100;
-                image.Source = bitmapImage;
+                var item = args.Item as PlaylistItem;
+                BitmapImage imageTmp = await item.game.GetImageThumbnailAsync();
+                ////Trace.TraceInformation("Loaded " + hash + " Image Name:" + imageName);
 
+                //image.Opacity = 0;
+                image.Source = imageTmp;
                 if (image.Source != null)
                 {
                     SetItemImage(args.ItemContainer.ContentTemplateRoot);
@@ -275,14 +274,8 @@ namespace RetroPass
                 args.Handled = true;
             }
         }
-       
 
-
-
-
-        
-
-    public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
+        public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {
             if (parent == null) return null;
             T foundChild = null;
