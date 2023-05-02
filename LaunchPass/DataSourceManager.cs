@@ -1,3 +1,4 @@
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -510,13 +511,99 @@ namespace RetroPass
                                     ((App)Application.Current).CurrentThemeSettings = (LaunchPassThemeSettings)serializer.Deserialize(reader);
                                 }
                             }
+                            else
+                            {
+                                //Attempt too create theme settings configuration file.
+                                launchPassXMLfile = await launchPassFolderCurrent.CreateFileAsync("LaunchPassUserSettings.xml", CreationCollisionOption.ReplaceExisting);
 
-                            var fontFolder = await launchPassFolderCurrent.GetFolderAsync("Fonts");
+                                if (launchPassXMLfile != null)
+                                // Success, now generate the files contents.
+                                {
+                                    LaunchPassThemeSettings launchPassDefault = new LaunchPassThemeSettings();
+                                    launchPassDefault.Font = "Xbox.ttf";
+
+                                    launchPassDefault.Backgrounds = new Backgrounds()
+                                    {
+                                        Background = new List<Background>()
+                                        {
+                                         new Background() { Page = "MainPage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "GamePage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "DetailsPage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "SearchPage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "CustomizePage", File = "LaunchPass-LP.mp4" },
+                                         new Background() { Page = "SettingsPage", File = "LaunchPass-LP.mp4" },
+                                        }
+                                    };
+
+                                    launchPassDefault.BoxArtType = "Box - Front";
+
+                                    XmlSerializer x1 = new XmlSerializer(typeof(LaunchPassThemeSettings));
+                                    using (TextWriter writer = new StringWriter())
+                                    {
+                                        x1.Serialize(writer, launchPassDefault);
+                                        await FileIO.WriteTextAsync(launchPassXMLfile, writer.ToString());
+                                    }
+
+                                    ((App)Application.Current).CurrentThemeSettings = launchPassDefault;
+                                }
+                            }
+
+                            //CHECK WHETHER BACKGROUND IMAGES ARE AVAILABLE OR NOT
+                            StorageFolder bgFolder = await launchPassFolderCurrent.GetFolderAsync("Backgrounds");
+                            if (bgFolder == null)
+                                bgFolder = await launchPassFolderCurrent.CreateFolderAsync("Backgrounds");
+
+                            if (((App)Application.Current).CurrentThemeSettings != null && ((App)Application.Current).CurrentThemeSettings.Backgrounds != null && ((App)Application.Current).CurrentThemeSettings.Backgrounds.Background != null)
+                            {
+                                foreach (var item in ((App)Application.Current).CurrentThemeSettings.Backgrounds.Background)
+                                {
+                                    if (!await bgFolder.FileExistsAsync(item.File))
+                                    {
+                                        var bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/LaunchPass-LP.mp4"));
+                                        await bgStoreFile.CopyAsync(bgFolder, bgStoreFile.Name, NameCollisionOption.ReplaceExisting);
+                                        item.File = bgStoreFile.Name;
+
+                                        bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/LaunchPass-LP.mp4"));
+                                        await bgStoreFile.CopyAsync(bgFolder, bgStoreFile.Name, NameCollisionOption.ReplaceExisting);
+
+                                        bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/LowPolygon-LP.mp4"));
+                                        await bgStoreFile.CopyAsync(bgFolder, bgStoreFile.Name, NameCollisionOption.ReplaceExisting);
+
+                                        bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Purpz-LP.mp4"));
+                                        await bgStoreFile.CopyAsync(bgFolder, bgStoreFile.Name, NameCollisionOption.ReplaceExisting);
+
+                                        bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Waves-LP.mp4"));
+                                        await bgStoreFile.CopyAsync(bgFolder, bgStoreFile.Name, NameCollisionOption.ReplaceExisting);
+
+                                        bgStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Background/Zoom-LP.mp4"));
+                                        await bgStoreFile.CopyAsync(bgFolder, bgStoreFile.Name, NameCollisionOption.ReplaceExisting);
+                                    }
+                                }
+                            }
+
+                            StorageFolder fontFolder = await launchPassFolderCurrent.GetFolderAsync("Fonts");
+                            if (fontFolder == null)
+                                fontFolder = await launchPassFolderCurrent.CreateFolderAsync("Fonts");
+
+                            StorageFile fontStoreFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Fonts/Xbox.ttf"));
+                            if (!await fontFolder.FileExistsAsync(fontStoreFile.Name))
+                            {
+                                await fontStoreFile.CopyAsync(fontFolder, fontStoreFile.Name, NameCollisionOption.ReplaceExisting);
+                                ((App)Application.Current).CurrentThemeSettings.Font = "Xbox.ttf";
+                            }
+
                             StorageFolder InstallationFolder = await StorageFolder.GetFolderFromPathAsync(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets", "Fonts"));
 
                             foreach (var file in await fontFolder.GetFilesAsync())
                             {
                                 await file.CopyAsync(InstallationFolder, file.Name, NameCollisionOption.ReplaceExisting);
+                            }
+
+                            XmlSerializer x = new XmlSerializer(typeof(LaunchPassThemeSettings));
+                            using (TextWriter writer = new StringWriter())
+                            {
+                                x.Serialize(writer, ((App)Application.Current).CurrentThemeSettings);
+                                await FileIO.WriteTextAsync(launchPassXMLfile, writer.ToString());
                             }
                         }
                         else
