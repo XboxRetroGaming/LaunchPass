@@ -64,10 +64,13 @@ namespace RetroPass
                 {
                     item.bitmapImage = await item.game.GetImageThumbnailAsync();
                 }
-
-                PlatformGridView.ItemsSource = null;
-                PlatformGridView.ItemsSource = playlist.PlaylistItems;
-                PlatformGridView.UpdateLayout();
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    //UI code here
+                    PlatformGridView.ItemsSource = null;
+                    PlatformGridView.ItemsSource = playlist.PlaylistItems;
+                    PlatformGridView.UpdateLayout();
+                });
             }
         }
 
