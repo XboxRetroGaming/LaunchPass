@@ -45,7 +45,7 @@
                         x:Name="ItemImage"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                         Source="{x:Bind bitmapImage}"
+                         Source="{x:Bind bitmapImage,Mode=OneWay}"
                         RelativePanel.AlignTopWithPanel="True"
                         Stretch="Uniform" />
                     <Border
@@ -168,9 +168,9 @@
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
             </GridView>
-            
+
             <local:PlayLaterControl x:Name="PlayLaterControl"  Grid.Row="1"/>
-            
+
             <Grid
             x:Name="OverlaySearch"
             Height="19"

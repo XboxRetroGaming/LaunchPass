@@ -155,7 +155,9 @@ namespace RetroPass
 
     internal class DataSourceLaunchBox : DataSource
     {
-        public DataSourceLaunchBox(string rootFolder, LaunchPassConfig LaunchPassConfig) : base(rootFolder, LaunchPassConfig) { }
+        public DataSourceLaunchBox(string rootFolder, LaunchPassConfig LaunchPassConfig) : base(rootFolder, LaunchPassConfig)
+        {
+        }
 
         public override List<string> GetAssets()
         {
@@ -273,25 +275,32 @@ namespace RetroPass
             List<PlaylistLaunchBox> playlistLaunchBoxList = new List<PlaylistLaunchBox>();
 
             StorageFolder playlistsFolder = await StorageUtils.GetFolderFromPathAsync(rootFolder + "\\Data\\Playlists");
-            IReadOnlyList<StorageFile> playlistFiles = await playlistsFolder.GetFilesAsync();
-            foreach (StorageFile xmlPlaylistFile in playlistFiles)
+            if (playlistsFolder != null)
             {
-                string xmlPlaylist = await FileIO.ReadTextAsync(xmlPlaylistFile);
-
-                using (TextReader reader = new StringReader(xmlPlaylist))
+                IReadOnlyList<StorageFile> playlistFiles = await playlistsFolder.GetFilesAsync();
+                foreach (StorageFile xmlPlaylistFile in playlistFiles)
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(PlaylistLaunchBox));
-                    // Call the De-serialize method to restore the object's state.
-                    PlaylistLaunchBox playlistLaunchBox = serializer.Deserialize(reader) as PlaylistLaunchBox;
-                    playlistLaunchBoxList.Add(playlistLaunchBox);
+                    string xmlPlaylist = await FileIO.ReadTextAsync(xmlPlaylistFile);
+
+                    using (TextReader reader = new StringReader(xmlPlaylist))
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(PlaylistLaunchBox));
+                        // Call the De-serialize method to restore the object's state.
+                        PlaylistLaunchBox playlistLaunchBox = serializer.Deserialize(reader) as PlaylistLaunchBox;
+                        if (playlistLaunchBox.PlaylistGames != null)
+                        {
+                            playlistLaunchBoxList.Add(playlistLaunchBox);
+                        }
+                    }
                 }
             }
-
             return playlistLaunchBoxList;
         }
+
         private void AddGameToSortedDictionary(SortedDictionary<string, Game> sortedGames, Game game)
         {
             string key = string.IsNullOrEmpty(game.SortTitle) ? game.Title : game.SortTitle;
+
             if (sortedGames.ContainsKey(key))
             {
                 //if the key exists, still show the game, but just append a unique guid so it can be added to a dictionary
@@ -299,6 +308,7 @@ namespace RetroPass
             }
             sortedGames.Add(key, game);
         }
+
         private void AddToDictionaryList<TKey, TValue>(IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value)
         {
             if (!dictionary.ContainsKey(key))
@@ -450,7 +460,6 @@ namespace RetroPass
                 }
             }
 
-            playlistTmp.Sort();
             playlistTmp.UpdateGamesLandingPage();
             Playlists.Add(playlistTmp);
             return playlistTmp;
@@ -502,21 +511,21 @@ namespace RetroPass
                 {
                     PlatformsLaunchBox.Platform platformLaunchBox = playlist as PlatformsLaunchBox.Platform;
                     //load platform if it is not already loaded
-                    //if (Platforms.Exists(p => p.Name == platformLaunchBox.Name) == false)
-                    //{
-                    //launchbox platforms are loaded as Playlists
-                    playlistTmp = await LoadLaunchBoxPlatform(platformLaunchBox.Name, platformsLaunchBox, emulatorPlatforms, platformsFiles);
-                    if (playlistTmp == null)
+                    if (Platforms.Exists(p => p.Name == platformLaunchBox.Name) == false)
                     {
-                        continue;
+                        //launchbox platforms are loaded as Playlists
+                        playlistTmp = await LoadLaunchBoxPlatform(platformLaunchBox.Name, platformsLaunchBox, emulatorPlatforms, platformsFiles);
+                        if (playlistTmp == null)
+                        {
+                            continue;
+                        }
                     }
-                    //}
-                    ////Platform can be loaded already. For example, launchbox playlist called "1st playlist" has a game that's from "SNES" platform playlist.
-                    ////"SNES" platform playlist will already be loaded, because "1st playlist" is processed earlier when going through joinedPlaylists dictionary.
-                    //else
-                    //{
-                    //    playlistTmp = Playlists.FirstOrDefault(t => t.Name == platformLaunchBox.Name);
-                    //}
+                    //Platform can be loaded already. For example, launchbox playlist called "1st playlist" has a game that's from "SNES" platform playlist.
+                    //"SNES" platform playlist will already be loaded, because "1st playlist" is processed earlier when going through joinedPlaylists dictionary.
+                    else
+                    {
+                        playlistTmp = Playlists.FirstOrDefault(t => t.Name == platformLaunchBox.Name);
+                    }
                 }
                 else if (playlist is PlaylistLaunchBox)
                 {
@@ -536,6 +545,7 @@ namespace RetroPass
 
                     playlistTmp = new Playlist();
                     playlistTmp.Name = playlistLaunchBox._Playlist.Name;
+                    SortedDictionary<string, Game> sortedGames = new SortedDictionary<string, Game>();
 
                     // GET PLAYLIST IMAGE
                     StorageFolder platformImageFolder = await StorageUtils.GetFolderFromPathAsync(rootFolder + "\\Images\\Playlists\\" + playlistTmp.Name);
@@ -567,8 +577,15 @@ namespace RetroPass
 
                         if (playlistItemPlatform != null)
                         {
-                            playlistTmp.AddPlaylistItem(playlistItemPlatform.game);
+                            var game = playlistItemPlatform.game;
+
+                            AddGameToSortedDictionary(sortedGames, game);
                         }
+                    }
+
+                    foreach (var gameEntry in sortedGames)
+                    {
+                        playlistTmp.AddPlaylistItem(gameEntry.Value);
                     }
 
                     //show playlist only if there is at least one game
