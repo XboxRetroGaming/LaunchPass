@@ -1,17 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace RetroPass
 {
-    public class Playlist
+    public class Playlist : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyyChanged(string propertyname)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+            }
+        }
         public string Name { get; set; }
 
         public BitmapImage Thumbnail { get; set; }
-        public ObservableCollection<PlaylistItem> PlaylistItems { get; set; } = new ObservableCollection<PlaylistItem>();
+        private ObservableCollection<PlaylistItem> playlistItems = new ObservableCollection<PlaylistItem>();
+        public ObservableCollection<PlaylistItem> PlaylistItems
+        {
+            get
+            {
+                return playlistItems;
+            }
+            set
+            {
+                playlistItems = value;
+                OnPropertyyChanged("PlaylistItems");
+            }
+        }
         public ObservableCollection<PlaylistItem> PlaylistItemsLandingPage { get; set; } = new ObservableCollection<PlaylistItem>();
 
         public PlaylistItem AddPlaylistItem(Game game)

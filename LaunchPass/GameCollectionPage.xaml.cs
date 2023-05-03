@@ -64,10 +64,13 @@ namespace RetroPass
                 {
                     item.bitmapImage = await item.game.GetImageThumbnailAsync();
                 }
-
-                PlatformGridView.ItemsSource = null;
-                PlatformGridView.ItemsSource = playlist.PlaylistItems;
-                PlatformGridView.UpdateLayout();
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    //UI code here
+                    PlatformGridView.ItemsSource = null;
+                    PlatformGridView.ItemsSource = playlist.PlaylistItems;
+                    PlatformGridView.UpdateLayout();
+                });
             }
         }
 
@@ -275,14 +278,14 @@ namespace RetroPass
                 args.Handled = true;
             }
         }
-       
 
 
 
 
-        
 
-    public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
+
+
+        public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {
             if (parent == null) return null;
             T foundChild = null;
