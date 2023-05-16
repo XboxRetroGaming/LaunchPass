@@ -7,21 +7,34 @@ assignees: Misunderstood-Wookiee, danprice142
 
 ---
 
-**This appears to be a problem**
-A clear and concise description of what the bug is.
+**I have done the following**
+- [ ] Uninstalled the app & Restarted the Xbox
+- [ ] Re-Installed the App.
+- [ ] Checked USB is set up correctly.
+- [ ] Checked for an existing issue.
+ ***
+ 
+<details><summary>This appears to be a problem</summary>
+<p>
+A clear and concise description of what the bug is here.
+</p>
 
-**To Reproduce**
+`To Reproduce`
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
-4. See error
+4. Check Error XYZ
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+`Expected behavior`
+A clear and concise description of what you expected to happen here.
+</details> 
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+`App Version:`  (e.g v1.1.0.0 )
 
-**Additional context**
+`Screenshots`
+_If applicable, add screenshots to help explain your problem here._
+
+<details><summary>Additional context</summary>
 Add any other context about the problem here.
+</details> 
