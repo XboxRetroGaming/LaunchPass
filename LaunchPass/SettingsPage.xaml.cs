@@ -367,7 +367,7 @@ namespace RetroPass
         private async void LP_Click(object sender, RoutedEventArgs e)
         {
             // The URI to launch
-            var uri = new Uri("microsoft-edge:https://discord.gg/eYt92NNhNE");
+            var uri = new Uri("microsoft-edge:https://dsc.gg/launchpass");
             // Launch the URI
             var success = await Windows.System.Launcher.LaunchUriAsync(uri);
             if (success)
