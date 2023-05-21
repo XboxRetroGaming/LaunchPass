@@ -47,11 +47,11 @@ namespace RetroPass
                     break;
 
                 case Platform.EEmulatorType.gamecube:
-                    url = GetUrlRetroarch(game);
+                    url = GetUrlgamecube(game);
                     break;
 
                 case Platform.EEmulatorType.wii:
-                    url = GetUrlRetrix(game);
+                    url = GetUrlwii(game);
                     break;
 
                 case Platform.EEmulatorType.virtualconsole:
