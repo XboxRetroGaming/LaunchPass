@@ -1,0 +1,26 @@
+name: Notification on push
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  sending:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Discord notification
+      uses: Misunderstood-Wookiee/LaunchPass@Release
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        DISCORD_USERNAME: LaunchPass
+        DISCORD_AVATAR: null
+        MESSAGE_TITLE: New Version
+        MESSAGE_DESCRIPTION: Github Action By LaunchPass
+        MESSAGE_URL: https://github.com/Misunderstood-Wookiee/LaunchPass
+        MESSAGE_COLOR: 5814783
+        CONTENT: null
+        MESSAGE_TITLE: "New Version"
+        MESSAGE_DESCRIPTION: "LaunchPass"
+        MESSAGE_URL: 'https://github.com/LeGitHubDeTai/github-to-discord'
+        SECTION_NAME: "ChangeLog"
+        IMAGE: null;
