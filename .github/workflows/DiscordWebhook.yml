@@ -1,4 +1,4 @@
-name: Discord Release Push
+name: Discord Push
 
 on:
   release:
@@ -9,18 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Discord notification
-      uses: Misunderstood-Wookiee/LaunchPass@Release
+      uses: LeGitHubDeTai/github-to-discord@main
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        DISCORD_USERNAME: LaunchPass
-        DISCORD_AVATAR: null
+        DISCORD_USERNAME: Tai Studio
+        DISCORD_AVATAR: https://raw.githubusercontent.com/LeGitHubDeTai/github-to-discord/main/icon.png
         MESSAGE_TITLE: New Version
-        MESSAGE_DESCRIPTION: Github Action By LaunchPass
-        MESSAGE_URL: https://github.com/Misunderstood-Wookiee/LaunchPass
+        MESSAGE_DESCRIPTION: Github Action By Tai Studio
+        MESSAGE_URL: https://github.com/LeGitHubDeTai/AnimeBack
         MESSAGE_COLOR: 5814783
         CONTENT: null
         MESSAGE_TITLE: "New Version"
-        MESSAGE_DESCRIPTION: "LaunchPass"
+        MESSAGE_DESCRIPTION: "Tai Studio"
         MESSAGE_URL: 'https://github.com/LeGitHubDeTai/github-to-discord'
         SECTION_NAME: "ChangeLog"
+        AUTHOR_NAME: "Tai Studio"
+        AUTHOR_URL: "https://tai-studio.ml"
+        AUTHOR_AVATAR: "https://tai-studio.ml/img/icons/Tai_Studio_discord.png"
+        FOOTER_TEXT: "- Tai Studio © 2021 -"
+        FOOTER_URL: "https://tai-studio.ml/img/icons/Tai_Studio_discord.png"
         IMAGE: null;
