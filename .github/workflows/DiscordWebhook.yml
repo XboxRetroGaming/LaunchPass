@@ -12,20 +12,20 @@ jobs:
       uses: LeGitHubDeTai/github-to-discord@main
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        DISCORD_USERNAME: Tai Studio
-        DISCORD_AVATAR: https://raw.githubusercontent.com/LeGitHubDeTai/github-to-discord/main/icon.png
+        DISCORD_USERNAME: Test
+        DISCORD_AVATAR: 
         MESSAGE_TITLE: New Version
-        MESSAGE_DESCRIPTION: Github Action By Tai Studio
-        MESSAGE_URL: https://github.com/LeGitHubDeTai/AnimeBack
+        MESSAGE_DESCRIPTION: 
+        MESSAGE_URL: 
         MESSAGE_COLOR: 5814783
         CONTENT: null
         MESSAGE_TITLE: "New Version"
-        MESSAGE_DESCRIPTION: "Tai Studio"
-        MESSAGE_URL: 'https://github.com/LeGitHubDeTai/github-to-discord'
+        MESSAGE_DESCRIPTION: ""
+        MESSAGE_URL: ''
         SECTION_NAME: "ChangeLog"
-        AUTHOR_NAME: "Tai Studio"
-        AUTHOR_URL: "https://tai-studio.ml"
-        AUTHOR_AVATAR: "https://tai-studio.ml/img/icons/Tai_Studio_discord.png"
-        FOOTER_TEXT: "- Tai Studio © 2021 -"
-        FOOTER_URL: "https://tai-studio.ml/img/icons/Tai_Studio_discord.png"
+        AUTHOR_NAME: ""
+        AUTHOR_URL: ""
+        AUTHOR_AVATAR: ""
+        FOOTER_TEXT: ""
+        FOOTER_URL: ""
         IMAGE: null;
